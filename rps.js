@@ -21,4 +21,28 @@ function getComputerSelection() {
 let playerSelection =  (prompt("Rock, paper, or scissors","Choose your destiny.")).toLowerCase;
 
 
+function playRound (computerSelection, playerSelection) {
+    if ((computerSelection = "paper") && (playerSelection = "rock")) {
+        return("You lose, paper beats rock!");
+    }
+    else if ((computerSelection = "rock") && (playerSelection = "scissors")) {
+        return("You lose, rock beats scissors!");
+    }
 
+    else if ((computerSelection = "scissors") && (playerSelection = "paper")) {
+        return("You lose, scissors beats paper!");
+    }
+    
+    else if ((computerSelection = "scissors") && (playerSelection = "rock")) {
+        return("You won, rock beats scissors!");
+    }
+    
+    else if ((computerSelection = "paper") && (playerSelection = "scissors")) {
+        return("You won, scissors beats paper!");
+    }
+    else if ((computerSelection = "rock") && (playerSelection = "paper")) {
+        return("You won, paper beats rock!");
+    }
+    else return("No winner!")
+
+}
