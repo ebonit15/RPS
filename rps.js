@@ -58,25 +58,32 @@ function playRound () {
         counter = 1;
         return("You won, paper beats rock!");
     }
-    else return("No winner!")
-
+    else {
+        counter = 2;
+        return("No winner!");
+    }
 }
 
+let plyr = 0;
+let cmptr = 0;
+
 //Function to count score//
-function score () {
-    let plyr=0;
-    let cmptr=0;
-    if (counter > 0) {
+function keepScore () {    
+    if (counter === 1) {
         plyr++;
     }
     
-    else cmptr++;
-    return("You:"+plyr+" "+"Computer:"+cmptr);
+    else if (counter === 0) {
+        cmptr++;
+    }    
+    else return;
 }
-
-function game() {
-    for (i=0; i<5; i++) {
+//final function to start a game of n rounds//
+function game(n) {
+    for (let i=0; i<n; i++) {
         playRound();
-        score();
+        keepScore();
+        console.log("You:"+plyr+" "+"Computer:"+cmptr);
     }
+    return(console.log("Final score! "+"You:"+plyr+" "+"Computer:"+cmptr));
 }
