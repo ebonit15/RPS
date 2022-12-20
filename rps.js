@@ -2,7 +2,6 @@
 let rock = "rock";
 let paper = "paper";
 let scissors = "scissors";
-
 //randomly generating a move for the computer//
 function getComputerSelection() {
     
@@ -18,13 +17,43 @@ function getComputerSelection() {
     else return(scissors);
 }
 
-let counter;
+const container = document.querySelector('#container');
+const something = document.createElement('div');
+something.textContent = "something";
+container.appendChild(something);
+
+let plyr = 0;
+let cmptr = 0;
+let counter=0;
+
+let playerSelection;
+
+let result;
+
+function selector (para) {
+    playerSelection=para;
+    playRound();
+    console.log(result);
+    keepScore();
+    return;
+}
+
+document.getElementById("roc").addEventListener("click", () =>{
+    selector("rock")
+})
+document.getElementById("pap").addEventListener("click", ()=>{
+    selector("paper");
+})
+document.getElementById("sci").addEventListener("click", ()=>{
+    selector("scissors");
+})
+
 
 //Function to call out the result of matches.//
 function playRound () {
 
     //Asking for player's selection//
-    let playerSelection = (prompt("Rock, paper, scissors?")).toLowerCase();
+    //let playerSelection = (prompt("Rock, paper, scissors?")).toLowerCase();
     console.log(playerSelection);
 
     let computerSelection = getComputerSelection();
@@ -32,51 +61,66 @@ function playRound () {
 
 
     if ((computerSelection === "paper") && (playerSelection === "rock")) {
-        counter = 0;
-        return("You lose, paper beats rock!");
+        cmptr++;
+        result = "You lose, paper beats rock!";
     }
     else if ((computerSelection === "rock") && (playerSelection === "scissors")) {
-        counter = 0;
-        return("You lose, rock beats scissors!");
+        cmptr++;
+        result = "You lose, rock beats scissors!";
     }
 
     else if ((computerSelection === "scissors") && (playerSelection === "paper")) {
-        counter = 0;
-        return("You lose, scissors beats paper!");
+        cmptr++;
+        result = "You lose, scissors beats paper!";
     }
     
     else if ((computerSelection === "scissors") && (playerSelection === "rock")) {
-        counter = 1;
-        return("You won, rock beats scissors!");
+        plyr++;
+        result = "You won, rock beats scissors!";
     }
     
     else if ((computerSelection === "paper") && (playerSelection === "scissors")) {
-        counter = 1;
-        return("You won, scissors beats paper!");
+        plyr++;
+        result = "You won, scissors beats paper!";
     }
     else if ((computerSelection === "rock") && (playerSelection === "paper")) {
-        counter = 1;
-        return("You won, paper beats rock!");
+        plyr++;
+        result = "You won, paper beats rock!";
     }
     else {
-        counter = 2;
-        return("No winner!");
+        counter++;
+        result = "No winner!";
     }
 }
 
-let plyr = 0;
-let cmptr = 0;
 
 //Function to count score//
 function keepScore () {    
-    if (counter === 1) {
-        plyr++;
-    }
-    
-    else if (counter === 0) {
-        cmptr++;
+    if (plyr+cmptr+counter !==5) {
+        const score = document.createElement('div');
+        score.classList.add('score');
+        score.textContent = "You are:"+plyr+""+"Computer:"+cmptr;
+        container.appendChild(score);
     }    
-    else return;
+    else if ((plyr+cmptr+counter ===5)&& plyr>cmptr){
+        const score = document.createElement('div');
+        score.classList.add('score');
+        score.textContent = "You won! You are:"+plyr+""+"Computer:"+cmptr;
+        container.appendChild(score);
+    }
+    else if (plyr<cmptr){
+        const score = document.createElement('div');
+        score.classList.add('score');
+        score.textContent = "You lost! You are:"+plyr+""+"Computer:"+cmptr;
+        container.appendChild(score);
+    }
+    else {
+        const score = document.createElement('div');
+        score.classList.add('score');
+        score.textContent = "Draw! You are:"+plyr+""+"Computer:"+cmptr;
+        container.appendChild(score);
+    }
+    return;
 }
 //final function to start a game of n rounds//
 function game(n) {
